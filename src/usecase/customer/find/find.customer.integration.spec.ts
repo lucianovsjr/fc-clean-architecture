@@ -36,7 +36,7 @@ describe("Test find customer use case", () => {
         const input = {
             id: "123",
         };
-        const result = usecase.execute(input);
+        const result = await usecase.execute(input);
         const output = {
             id: "123",
             name: "John",
