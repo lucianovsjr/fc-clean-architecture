@@ -23,7 +23,7 @@ describe("E2E test for customer", () => {
                 }
             });
 
-        expect(response).toBe(200);
+        expect(response.status).toBe(200);
         expect(response.body.name).toBe("Jhon");
         expect(response.body.address.street).toBe("Street");
         expect(response.body.address.city).toBe("City");
