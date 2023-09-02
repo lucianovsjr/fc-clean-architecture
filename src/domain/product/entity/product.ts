@@ -1,21 +1,27 @@
+import Entity from "../../@shared/entity/entity.abstract";
+import { NotificationErrorProps } from "../../@shared/notification/notification";
+import NotificationError from "../../@shared/notification/notification.error";
 import ProductInterface from "./product.interface";
 
-export default class Product implements ProductInterface {
-  private _id: string;
+export default class Product extends Entity implements ProductInterface {
   private _name: string;
   private _price: number;
 
   constructor(id: string, name: string, price: number) {
+    super();
     this._id = id;
     this._name = name;
     this._price = price;
     this.validate();
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   get id(): string {
     return this._id;
   }
-  
+
   get name(): string {
     return this._name;
   }
@@ -34,16 +40,27 @@ export default class Product implements ProductInterface {
     this.validate();
   }
 
-  validate(): boolean {
+  validate() {
     if (this._id.length === 0) {
-      throw new Error("Id is required");
+      const error: NotificationErrorProps = {
+        message: "Id is required",
+        context: "product",
+      };
+      this.notification.addError(error);
     }
     if (this._name.length === 0) {
-      throw new Error("Name is required");
+      const error: NotificationErrorProps = {
+        message: "Name is required",
+        context: "product",
+      };
+      this.notification.addError(error);
     }
     if (this._price < 0) {
-      throw new Error("Price must be greater than zero");
+      const error: NotificationErrorProps = {
+        message: "Price must be greater than zero",
+        context: "product",
+      };
+      this.notification.addError(error);
     }
-    return true;
   }
 }
