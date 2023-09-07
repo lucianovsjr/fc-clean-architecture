@@ -3,7 +3,7 @@ import { OutputListCustomerDto } from "../../../usecase/customer/list/list.custo
 
 
 export default class CustomerPresenter {
-    static toXML(data: OutputListCustomerDto): string {
+    static listXML(data: OutputListCustomerDto): string {
         const xmlOptions = {
             header: true,
             indent: " ",
